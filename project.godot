@@ -15,10 +15,6 @@ run/main_scene="uid://duxwfm83dmnvc"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
-[display]
-
-window/stretch/scale=8.0
-
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

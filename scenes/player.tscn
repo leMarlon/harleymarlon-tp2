@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://curtwtkw8ymjl"]
+[gd_scene load_steps=60 format=3 uid="uid://curtwtkw8ymjl"]
 
 [ext_resource type="Script" uid="uid://cm7a6i6vwbti7" path="res://scripts/player.gd" id="1_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://b2rukkn0stupc" path="res://sprites/characters/player.png" id="2_qlg0r"]
@@ -423,19 +423,27 @@ animations = [{
 "speed": 7.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlg0r"]
+radius = 7.0
+height = 28.0
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Node" type="Node" parent="."]
 
 [node name="player" type="CharacterBody2D" parent="."]
-position = Vector2(-5, 0)
+y_sort_enabled = true
+position = Vector2(-5, -1)
 script = ExtResource("1_y4r1p")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player"]
-position = Vector2(27.1951, 21.8714)
-scale = Vector2(0.950203, 0.922024)
+position = Vector2(16, -1)
+scale = Vector2(1.4502, 1.4072)
 sprite_frames = SubResource("SpriteFrames_540hr")
-animation = &"walk_up"
-frame_progress = 0.177009
+animation = &"side_walk"
+offset = Vector2(-7.415, -15.01)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+y_sort_enabled = true
+position = Vector2(5, -9)
+shape = SubResource("CapsuleShape2D_qlg0r")
