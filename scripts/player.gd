@@ -3,6 +3,11 @@ extends CharacterBody2D
 const speed = 100
 var current_dir = "none"
 
+var enemy_attack_range = false
+var enemy_attack_cd = true
+var health = 100
+var player_alive = true
+
 
 func _ready():
 	$AnimatedSprite2D.play("down_idle")
@@ -10,6 +15,7 @@ func _ready():
 	
 func _physics_process(delta):
 		player_movement(delta)
+		
 		
 func player_movement(delta):
 	
@@ -68,3 +74,6 @@ func play_anim(movement):
 			anim.play("walk_down")
 		elif movement == 0:
 			anim.play("down_idle")
+
+func player():
+	pass

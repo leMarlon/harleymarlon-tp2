@@ -214,7 +214,7 @@ region = Rect2(192, 240, 48, 48)
 atlas = ExtResource("2_qlg0r")
 region = Rect2(240, 240, 48, 48)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_540hr"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_qlg0r"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -423,27 +423,24 @@ animations = [{
 "speed": 7.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlg0r"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tuyoq"]
 radius = 7.0
-height = 28.0
+height = 24.0
 
-[node name="Node2D" type="Node2D"]
-
-[node name="Node" type="Node" parent="."]
-
-[node name="player" type="CharacterBody2D" parent="."]
+[node name="player" type="CharacterBody2D"]
 y_sort_enabled = true
 position = Vector2(-5, -1)
+collision_layer = 3
 script = ExtResource("1_y4r1p")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(16, -1)
 scale = Vector2(1.4502, 1.4072)
-sprite_frames = SubResource("SpriteFrames_540hr")
+sprite_frames = SubResource("SpriteFrames_qlg0r")
 animation = &"side_walk"
 offset = Vector2(-7.415, -15.01)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 y_sort_enabled = true
 position = Vector2(5, -9)
-shape = SubResource("CapsuleShape2D_qlg0r")
+shape = SubResource("CapsuleShape2D_tuyoq")
