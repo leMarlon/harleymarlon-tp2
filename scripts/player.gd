@@ -13,16 +13,19 @@ var attack_ip = false
 
 func _ready():
 	$AnimatedSprite2D.play("down_idle")
+	$Camera2D.make_current()
+	_set_camera_limits()  # 👈 added to auto-adjust camera to map size
 	
 	
 func _physics_process(delta):
 		player_movement(delta)
+		attack()
 		enemy_attack()
 		if health <= 0:
 			player_alive = false
 			health = 0
 			print("Player has died.")
-			self.queue.free() #TO CHANGE WHEN WE HAVE GAME OVER SCENE
+			 #TO CHANGE WHEN WE HAVE GAME OVER SCENE
 		
 		
 func player_movement(delta):
@@ -117,9 +120,39 @@ func _on_attack_cooldown_timeout() -> void:
 func attack():
 	var dir = current_dir
 	
-	if input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack"):
 		global.player_current_attack = true
-		attack.ip = true
+		attack_ip = true
 		if dir == "right":
-			
-		
+			$AnimatedSprite2D.flip_h = false
+			$AnimatedSprite2D.play("side_slash")
+			$deal_attack_timer.start()
+		if dir == "left":
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.play("side_slash")
+			$deal_attack_timer.start()
+		if dir == "down":
+			$AnimatedSprite2D.play("downslash")
+			$deal_attack_timer.start()
+		if dir == "up":
+			$AnimatedSprite2D.play("upslash")
+			$deal_attack_timer.start()
+
+
+func _on_deal_attack_timer_timeout() -> void:
+	$deal_attack_timer.stop()
+	global.player_current_attack = false
+	attack_ip = false
+
+
+# 👇 ADDED FUNCTION: auto-adjust camera to TileMap size
+func _set_camera_limits():
+	var tilemap = get_tree().get_first_node_in_group("world_map")
+	if tilemap and tilemap is TileMap:
+		var used_rect = tilemap.get_used_rect()
+		var cell_size = tilemap.tile_set.tile_size
+
+		$Camera2D.limit_left = int(used_rect.position.x * cell_size.x)
+		$Camera2D.limit_top = int(used_rect.position.y * cell_size.y)
+		$Camera2D.limit_right = int((used_rect.position.x + used_rect.size.x) * cell_size.x)
+		$Camera2D.limit_bottom = int((used_rect.position.y + used_rect.size.y) * cell_size.y)
