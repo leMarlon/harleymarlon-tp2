@@ -216,7 +216,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qhqgy")
 }, {
-"duration": 1.0,
+"duration": 15.0,
 "texture": SubResource("AtlasTexture_dqkch")
 }],
 "loop": true,
@@ -418,7 +418,7 @@ radius = 7.0
 height = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qlg0r"]
-radius = 23.0
+radius = 18.1108
 
 [node name="player" type="CharacterBody2D"]
 y_sort_enabled = true
@@ -430,8 +430,7 @@ script = ExtResource("1_y4r1p")
 position = Vector2(16, -1)
 scale = Vector2(1.4502, 1.4072)
 sprite_frames = SubResource("SpriteFrames_qlg0r")
-animation = &"side_slash"
-frame_progress = 0.456094
+animation = &"death"
 offset = Vector2(-7.415, -15.01)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -442,7 +441,7 @@ shape = SubResource("CapsuleShape2D_tuyoq")
 [node name="player_hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
-position = Vector2(5, -10)
+position = Vector2(6, -11)
 shape = SubResource("CircleShape2D_qlg0r")
 
 [node name="attack_cooldown" type="Timer" parent="."]
@@ -452,7 +451,19 @@ wait_time = 0.445
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(0.199178, 0.681111, 0.299278, 1)
+offset_left = -3.0
+offset_top = 5.0
+offset_right = 87.0
+offset_bottom = 30.0
+scale = Vector2(0.2, 0.2)
+show_percentage = false
+
+[node name="regin_timer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
+[connection signal="timeout" from="regin_timer" to="." method="_on_regin_timer_timeout"]

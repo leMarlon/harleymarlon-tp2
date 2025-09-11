@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const speed = 100
+const speed = 140
 var current_dir = "none"
 
 var enemy_inattack_range = false
@@ -14,48 +14,48 @@ var attack_ip = false
 func _ready():
 	$AnimatedSprite2D.play("down_idle")
 	$Camera2D.make_current()
-	_set_camera_limits()  # 👈 added to auto-adjust camera to map size
+	_set_camera_limits()
 	
 	
 func _physics_process(delta):
-		player_movement(delta)
-		attack()
-		enemy_attack()
-		if health <= 0:
-			player_alive = false
-			health = 0
-			print("Player has died.")
-			 #TO CHANGE WHEN WE HAVE GAME OVER SCENE
+	player_movement(delta)
+	attack()
+	enemy_attack()
+	update_health()
+	if health <= 0 and player_alive:
+		die()
 		
 		
 func player_movement(delta):
-	
-		if Input.is_action_pressed("ui_right"):
-			current_dir = "right"
-			play_anim(1)
-			velocity.x = speed
-			velocity.y = 0
-		elif Input.is_action_pressed("ui_left"):
-			current_dir = "left"
-			play_anim(1)
-			velocity.x = -speed
-			velocity.y = 0
-		elif Input.is_action_pressed("ui_down"):
-			current_dir = "down"
-			play_anim(1)
-			velocity.x = 0
-			velocity.y = speed
-		elif Input.is_action_pressed("ui_up"):
-			current_dir = "up"
-			play_anim(1)
-			velocity.x = 0
-			velocity.y = -speed
-		else:
-			play_anim(0)
-			velocity.x = 0
-			velocity.y = 0
+	if not player_alive:
+		return
+
+	if Input.is_action_pressed("ui_right"):
+		current_dir = "right"
+		play_anim(1)
+		velocity.x = speed
+		velocity.y = 0
+	elif Input.is_action_pressed("ui_left"):
+		current_dir = "left"
+		play_anim(1)
+		velocity.x = -speed
+		velocity.y = 0
+	elif Input.is_action_pressed("ui_down"):
+		current_dir = "down"
+		play_anim(1)
+		velocity.x = 0
+		velocity.y = speed
+	elif Input.is_action_pressed("ui_up"):
+		current_dir = "up"
+		play_anim(1)
+		velocity.x = 0
+		velocity.y = -speed
+	else:
+		play_anim(0)
+		velocity.x = 0
+		velocity.y = 0
 			
-		move_and_slide()
+	move_and_slide()
 		
 func play_anim(movement):
 	var dir = current_dir
@@ -105,6 +105,9 @@ func _on_player_hitbox_body_exited(body: Node2D) -> void:
 		enemy_inattack_range = false
 		
 func enemy_attack():
+	if not player_alive:
+		return
+
 	if enemy_inattack_range and enemy_attack_cooldown == true:
 		health = health - 10
 		enemy_attack_cooldown = false
@@ -113,11 +116,13 @@ func enemy_attack():
 		
 
 
-
 func _on_attack_cooldown_timeout() -> void:
 	enemy_attack_cooldown = true
 	
 func attack():
+	if not player_alive:
+		return
+
 	var dir = current_dir
 	
 	if Input.is_action_just_pressed("attack"):
@@ -145,7 +150,6 @@ func _on_deal_attack_timer_timeout() -> void:
 	attack_ip = false
 
 
-# 👇 ADDED FUNCTION: auto-adjust camera to TileMap size
 func _set_camera_limits():
 	var tilemap = get_tree().get_first_node_in_group("world_map")
 	if tilemap and tilemap is TileMap:
@@ -156,3 +160,51 @@ func _set_camera_limits():
 		$Camera2D.limit_top = int(used_rect.position.y * cell_size.y)
 		$Camera2D.limit_right = int((used_rect.position.x + used_rect.size.x) * cell_size.x)
 		$Camera2D.limit_bottom = int((used_rect.position.y + used_rect.size.y) * cell_size.y)
+
+
+
+func update_health():
+	var healthbar = $healthbar
+	
+	healthbar.value = health
+	
+	if health >= 100:
+		healthbar.visible = false
+	else:
+		healthbar.visible = true
+		
+		
+func _on_regin_timer_timeout() -> void:
+	if health < 100:
+		health = health + 20
+		if health > 100:
+			health = 100
+		if health == 0:
+			health = 0
+
+
+func die():
+	if not player_alive:
+		return
+
+	player_alive = false
+	health = 0
+	velocity = Vector2.ZERO
+	global.player_current_attack = false
+	attack_ip = false
+
+	print("Player has died.")
+
+	if $attack_cooldown:
+		$attack_cooldown.stop()
+	if $deal_attack_timer:
+		$deal_attack_timer.stop()
+	if $regin_timer:
+		$regin_timer.stop()
+
+	if $AnimatedSprite2D:
+		$AnimatedSprite2D.play("death")
+	
+	await get_tree().create_timer(2.0).timeout
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+	

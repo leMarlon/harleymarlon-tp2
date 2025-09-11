@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://duxwfm83dmnvc"]
+[gd_scene load_steps=11 format=3 uid="uid://duxwfm83dmnvc"]
 
 [ext_resource type="Texture2D" uid="uid://bu23e3ykopirm" path="res://sprites/tilesets/plains.png" id="1_4wyf3"]
+[ext_resource type="Script" uid="uid://b88acq6j2r0rx" path="res://world.gd" id="1_qfnet"]
 [ext_resource type="Texture2D" uid="uid://tvxgawacokb1" path="res://sprites/tilesets/grass.png" id="2_k0juu"]
 [ext_resource type="Texture2D" uid="uid://ckoayaltl60vp" path="res://sprites/objects/objects.png" id="3_71j4m"]
 [ext_resource type="PackedScene" uid="uid://curtwtkw8ymjl" path="res://scenes/player.tscn" id="4_k0juu"]
@@ -99,6 +100,7 @@ sources/2 = SubResource("TileSetAtlasSource_4mrxx")
 
 [node name="world" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_qfnet")
 
 [node name="TileMap" type="TileMap" parent="." groups=["world_map"]]
 y_sort_enabled = true

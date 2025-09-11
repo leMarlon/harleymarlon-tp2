@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://djh16ng445kk0"]
+
+[ext_resource type="Script" uid="uid://dsquenbk2imxu" path="res://scripts/game_over.gd" id="1_xeevv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0nqlu"]
+font_size = 90
+
+[node name="Control" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0.0156863, 0.0156863, 0.0156863, 0.607843)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 229.0
+offset_top = 219.0
+offset_right = 913.0
+offset_bottom = 367.0
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_0nqlu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 392.0
+offset_right = 839.0
+offset_bottom = 536.0
+theme_override_font_sizes/font_size = 66
+text = "Play Again ?"
+script = ExtResource("1_xeevv")

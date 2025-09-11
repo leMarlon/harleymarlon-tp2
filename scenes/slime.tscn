@@ -203,7 +203,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
-"speed": 7.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -293,15 +293,15 @@ radius = 83.0241
 radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n6pvg"]
-radius = 24.0208
+radius = 23.0217
 
 [node name="enemy" type="CharacterBody2D" groups=["slime"]]
 script = ExtResource("1_p2gj0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_h6x3v")
-animation = &"side_idle"
-frame_progress = 0.446369
+animation = &"death"
+frame_progress = 0.567301
 offset = Vector2(0, -6)
 
 [node name="detection_area" type="Area2D" parent="."]
@@ -323,6 +323,16 @@ shape = SubResource("CircleShape2D_n6pvg")
 
 [node name="take_damage_cooldown" type="Timer" parent="."]
 wait_time = 0.445
+
+[node name="healthbar" type="ProgressBar" parent="."]
+modulate = Color(0.199178, 0.681111, 0.299278, 1)
+offset_left = -9.0
+offset_top = 4.0
+offset_right = 81.0
+offset_bottom = 29.0
+scale = Vector2(0.2, 0.2)
+max_value = 30.0
+show_percentage = false
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
