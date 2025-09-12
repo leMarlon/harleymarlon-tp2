@@ -33,6 +33,12 @@ func _physics_process(delta):
 func player_movement(delta):
 	if not player_alive:
 		return
+	
+	if attack_ip:
+		velocity = Vector2.ZERO
+		return
+		
+		
 
 	if Input.is_action_pressed("ui_right"):
 		current_dir = "right"
@@ -126,6 +132,7 @@ func _on_attack_cooldown_timeout() -> void:
 func attack():
 	if not player_alive:
 		return
+		
 
 	var dir = current_dir
 	
@@ -156,6 +163,7 @@ func _on_deal_attack_timer_timeout() -> void:
 	$deal_attack_timer.stop()
 	global.player_current_attack = false
 	attack_ip = false
+	play_anim(0)
 
 
 func _set_camera_limits():
