@@ -245,6 +245,11 @@ animations = [{
 "name": &"idle",
 "speed": 6.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rrr3x")
@@ -300,8 +305,7 @@ script = ExtResource("1_p2gj0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_h6x3v")
-animation = &"death"
-frame_progress = 0.567301
+animation = &"new_animation"
 offset = Vector2(0, -6)
 
 [node name="detection_area" type="Area2D" parent="."]

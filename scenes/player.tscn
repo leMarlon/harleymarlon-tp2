@@ -1,7 +1,9 @@
-[gd_scene load_steps=57 format=3 uid="uid://curtwtkw8ymjl"]
+[gd_scene load_steps=59 format=3 uid="uid://curtwtkw8ymjl"]
 
 [ext_resource type="Script" uid="uid://cm7a6i6vwbti7" path="res://scripts/player.gd" id="1_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://b2rukkn0stupc" path="res://sprites/characters/player.png" id="2_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://bso6ya42ghhip" path="res://sound_effects/player/death.mp3" id="3_dqkch"]
+[ext_resource type="AudioStream" uid="uid://dqhuh5qrpcqda" path="res://sound_effects/player/slash.mp3" id="4_qlg0r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_qlg0r")
@@ -461,6 +463,15 @@ scale = Vector2(0.2, 0.2)
 show_percentage = false
 
 [node name="regin_timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_dqkch")
+volume_db = -2.667
+
+[node name="slash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_qlg0r")
+volume_db = -7.317
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]

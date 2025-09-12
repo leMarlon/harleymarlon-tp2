@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 const speed = 140
 var current_dir = "none"
+@onready var deathsound = $death
+@onready var slashsound = $slash
+
+
 
 var enemy_inattack_range = false
 var enemy_attack_cooldown = true
@@ -131,16 +135,20 @@ func attack():
 		if dir == "right":
 			$AnimatedSprite2D.flip_h = false
 			$AnimatedSprite2D.play("side_slash")
+			slashsound.play()
 			$deal_attack_timer.start()
 		if dir == "left":
 			$AnimatedSprite2D.flip_h = true
 			$AnimatedSprite2D.play("side_slash")
+			slashsound.play()
 			$deal_attack_timer.start()
 		if dir == "down":
 			$AnimatedSprite2D.play("downslash")
+			slashsound.play()
 			$deal_attack_timer.start()
 		if dir == "up":
 			$AnimatedSprite2D.play("upslash")
+			slashsound.play()
 			$deal_attack_timer.start()
 
 
@@ -174,7 +182,7 @@ func update_health():
 		healthbar.visible = true
 		
 		
-func _on_regin_timer_timeout() -> void:
+func _on_regin_timer_timeout():
 	if health < 100:
 		health = health + 20
 		if health > 100:
@@ -205,6 +213,8 @@ func die():
 	if $AnimatedSprite2D:
 		$AnimatedSprite2D.play("death")
 	
+	deathsound.play()
 	await get_tree().create_timer(2.0).timeout
+	
 	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 	

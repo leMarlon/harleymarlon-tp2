@@ -4,6 +4,8 @@ var speed = 65
 var player_chase = false
 var player = null
 
+
+
 var health = 30
 var player_inattack_zone = false
 
@@ -24,6 +26,7 @@ func _physics_process(delta):
 	if player_chase:
 		position += (player.position - position) / speed
 		$AnimatedSprite2D.play("side_walk")
+		
 		if (player.position.x - position.x) < 0:
 			$AnimatedSprite2D.flip_h = true
 		else:
