@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dedvq1bqt8pww"]
+[gd_scene load_steps=43 format=3 uid="uid://dedvq1bqt8pww"]
 
 [ext_resource type="Script" uid="uid://dyy6qgw5r6w7q" path="res://scripts/enemy2d.gd" id="1_p2gj0"]
 [ext_resource type="Texture2D" uid="uid://do7t0tf7cj35p" path="res://sprites/characters/slime.png" id="2_n6pvg"]
@@ -86,6 +86,10 @@ region = Rect2(128, 96, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1kmbt"]
 atlas = ExtResource("2_n6pvg")
 region = Rect2(160, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2gj0"]
+atlas = ExtResource("2_n6pvg")
+region = Rect2(0, 320, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8sfj"]
 atlas = ExtResource("2_n6pvg")
@@ -230,6 +234,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_p2gj0")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_a8sfj")
 }, {
 "duration": 1.0,
@@ -244,11 +256,6 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 6.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -305,7 +312,8 @@ script = ExtResource("1_p2gj0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_h6x3v")
-animation = &"new_animation"
+animation = &"hit"
+frame_progress = 0.0538532
 offset = Vector2(0, -6)
 
 [node name="detection_area" type="Area2D" parent="."]

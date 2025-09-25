@@ -122,7 +122,7 @@ func enemy_attack():
 		health = health - 10
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
-		print("Player health : ", health)
+		print("The player has been hit, Player health : ", health)
 		
 
 

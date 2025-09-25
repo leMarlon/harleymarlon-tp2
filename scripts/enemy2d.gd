@@ -11,6 +11,7 @@ var player_inattack_zone = false
 
 var can_take_damage = true
 var enemy_alive = true
+var is_hit = false
 
 func _physics_process(delta):
 	if not enemy_alive:
@@ -23,17 +24,17 @@ func _physics_process(delta):
 		die()
 		return
 
-	if player_chase:
-		position += (player.position - position) / speed
-		$AnimatedSprite2D.play("side_walk")
-		
-		if (player.position.x - position.x) < 0:
-			$AnimatedSprite2D.flip_h = true
-		else:
-			$AnimatedSprite2D.flip_h = false
-	else:
-		$AnimatedSprite2D.play("side_idle")
+	if not is_hit:
+		if player_chase:
+			position += (player.position - position) / speed
+			$AnimatedSprite2D.play("side_walk")
 
+			if (player.position.x - position.x) < 0:
+				$AnimatedSprite2D.flip_h = true
+			else:
+				$AnimatedSprite2D.flip_h = false
+		else:
+			$AnimatedSprite2D.play("side_idle")
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	player = body
@@ -64,7 +65,20 @@ func deal_with_damage():
 			health -= 10
 			$take_damage_cooldown.start()
 			can_take_damage = false
-			print("slime health = ", health)
+			print("the slime was hit, slime health = ", health)
+
+
+			is_hit = true
+			player_chase = false
+			$AnimatedSprite2D.play("hit")
+
+			await get_tree().create_timer(0.5).timeout
+
+
+			if enemy_alive:
+				is_hit = false
+				if player != null:
+					player_chase = true
 
 
 func _on_take_damage_cooldown_timeout() -> void:

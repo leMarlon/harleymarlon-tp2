@@ -265,6 +265,11 @@ animations = [{
 "name": &"downslash",
 "speed": 9.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a8ls1")
@@ -432,7 +437,7 @@ script = ExtResource("1_y4r1p")
 position = Vector2(16, -1)
 scale = Vector2(1.4502, 1.4072)
 sprite_frames = SubResource("SpriteFrames_qlg0r")
-animation = &"death"
+animation = &"new_animation"
 offset = Vector2(-7.415, -15.01)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -467,11 +472,11 @@ wait_time = 5.0
 
 [node name="death" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_dqkch")
-volume_db = -2.667
+volume_db = 2.904
 
 [node name="slash" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_qlg0r")
-volume_db = -7.317
+volume_db = 2.588
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
