@@ -5,7 +5,7 @@ Ce répertoire contient tout les éléments, données, fichiers qui sont liés a
 - Ce prototype contiendra ces éléments :
 
 - Une personnage jouable capable de lancer des attaques d'épée et de mourir.
-- Un NPC ennemi qui peut éliminer et attaquer le personnage jouable, il peut aussi prendre des dégats et mourir.
+- Des NPCs ennemis qui peut éliminer et attaquer le personnage jouable, il peut aussi prendre des dégats et mourir.
 - Des animations liés à chacun des personnages.
 - Des effets sonores liés à certaines actions du personnage.
 - Un environnement RPG/Aventure
