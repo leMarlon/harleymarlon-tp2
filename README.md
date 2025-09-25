@@ -1,4 +1,4 @@
-# TP1 en Intéractivité Ludique - Prototype de mini jeu RPG
+# TP2 en Intéractivité Ludique - Prototype de mini jeu RPG
 
 Ce répertoire contient tout les éléments, données, fichiers qui sont liés au projet GODOT en question, dans lequel sera crée un prototype de mini jeu RPG.
 
